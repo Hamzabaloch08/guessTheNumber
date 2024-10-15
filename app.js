@@ -1,4 +1,4 @@
-const randomNumber = parseInt(Math.random() * 100 + 1);
+let randomNumber = parseInt(Math.random() * 100 + 1);
 const submitGuessButton = document.querySelector('#subt');
 const userGuesses = document.querySelector('#guessField');
 const guessSlot = document.querySelector('.guesses');
@@ -63,9 +63,25 @@ function displayMessage(Message) {
 }
 
 function endGame() {
-
+    userGuesses.value = ''
+    userGuesses.setAttribute('disabled', '')
+    p.classList.add('button')
+    p.innerHTML = `<h2 id="newGame">Start new Game</h2>`
+    startOver.appendChild(p)
+    playGame = false
+    newGame()
 }
 
 function newGame() {
-
+    const newGamebutton = document.querySelector('#newGame');
+    newGamebutton.addEventListener('click', (e) => {
+        randomNumber = parseInt(Math.random() * 100 + 1);
+        prevGuess = []
+        numGuess = 1
+        guessSlot.innerHTML = ''
+        remaining.innerHTML = `${11 - numGuess}`
+        userGuesses.removeAttribute('disabled')
+        startOver.removeChild(p)
+        playGame = true
+    })
 }
