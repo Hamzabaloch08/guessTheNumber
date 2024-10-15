@@ -8,7 +8,7 @@ const startOver = document.querySelector('.resultParas');
 
 const p = document.createElement('p');
 
-const prevGuess = [];
+let prevGuess = []; // Changed from const to let
 let numGuess = 1;
 
 let playGame = true;
@@ -44,6 +44,7 @@ function ValidateGuess(guess) {
 function checkGuess(guess) {
     if (guess === randomNumber) {
         displayMessage(`you guessed it right`)
+        endGame();  // End game when correct guess
     } else if (guess < randomNumber) {
         displayMessage(`Number is too low`)
     } else if (guess > randomNumber) {
@@ -64,7 +65,7 @@ function displayMessage(Message) {
 
 function endGame() {
     userGuesses.value = ''
-    userGuesses.setAttribute('disabled', '')
+    userGuesses.setAttribute('disabled', 'disabled')  // Use 'disabled' correctly
     p.classList.add('button')
     p.innerHTML = `<h2 id="newGame">Start new Game</h2>`
     startOver.appendChild(p)
@@ -76,7 +77,7 @@ function newGame() {
     const newGamebutton = document.querySelector('#newGame');
     newGamebutton.addEventListener('click', (e) => {
         randomNumber = parseInt(Math.random() * 100 + 1);
-        prevGuess = []
+        prevGuess.length = 0; // Clear the array instead of reassigning
         numGuess = 1
         guessSlot.innerHTML = ''
         remaining.innerHTML = `${11 - numGuess}`
